@@ -9,6 +9,8 @@ from docplex.mp.format import parse_format
 
 
 def export_model_to_file(model: Model, out_filename: str):
+    # export a model to a path, infer format from path suffix
+    #
     model._checker.typecheck_string(out_filename, caller="export_model_to_file")
     out_path = Path(out_filename)
     suffixes = out_path.suffixes
@@ -47,7 +49,7 @@ def export_model_to_file(model: Model, out_filename: str):
     if not export_method:
         model.fatal("Export method not found: {0}, exiting", export_method_name)
 
-    print(f"-- apply method {export_method_name}")
+    #print(f"-- apply method {export_method_name}")
     if should_gzip:
         with NamedTemporaryFile(suffix=f".{fmt_ext}", mode="w+b", delete=False) as temp_file:
             try:
